@@ -36,7 +36,7 @@
           <h3 v-if="winner === 'Monster'">Monster won</h3>
           <button @click="startGame" class="button">Start Again</button>
         </section>
-        <section id="actions" v-if="winner === null">
+        <section id="actions" v-else>
           <button @click="playerAttack" class="button">Attack</button>
           <button
             @click="playerSuperAttack"
