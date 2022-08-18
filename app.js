@@ -9,6 +9,25 @@ const app = Vue.createApp({
       winner: null,
     };
   },
+  watch: {
+    playerHealth(value) {
+      if (value <= 0 && this.monsterHealth <= 0) {
+        //draw
+        this.winner = "Draw";
+      } else if (value <= 0) {
+        this.winner = "Monster";
+      }
+    },
+    monsterHealth(value) {
+      if (value <= 0 && this.playerHealth <= 0) {
+        //draw
+        this.winner = "Draw";
+      } else if (value <= 0) {
+        //player wins
+        this.winner = "Player";
+      }
+    },
+  },
   computed: {
     playerHealthbarStyle() {
       return { width: this.playerHealth + "%", danger: this.playerDanger };
@@ -21,6 +40,17 @@ const app = Vue.createApp({
     },
   },
   methods: {
+    startGame() {
+      this.monsterHealth = 100;
+      this.playerHealth = 100;
+      this.winner = null;
+      this.currentTurn = 0;
+    },
+
+    surrender() {
+      this.winner = "Monster";
+      this.playerHealth = 0;
+    },
     // Player attacks the monster and will recieve the monster's attack as well.
     playerAttack() {
       const playerDamage = this.generateStat(12, 18);
@@ -49,7 +79,6 @@ const app = Vue.createApp({
       } else {
         this.playerHealth += healthRecover;
       }
-      console.log(healthRecover, healthRecover + this.playerHealth);
     },
     // A stat will be used so the player can attack and heal within the same range.
     generateStat(min, max) {

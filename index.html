@@ -29,7 +29,14 @@
             </div>
           </div>
         </section>
-        <section id="actions">
+        <section v-if="winner">
+          <h2>Game over</h2>
+          <h3 v-if="winner === 'Draw'">Draw</h3>
+          <h3 v-if="winner === 'Player'">You won!</h3>
+          <h3 v-if="winner === 'Monster'">Monster won</h3>
+          <button @click="startGame" class="button">Start Again</button>
+        </section>
+        <section id="actions" v-if="winner === null">
           <button @click="playerAttack" class="button">Attack</button>
           <button
             @click="playerSuperAttack"
@@ -39,7 +46,7 @@
             Super Attack
           </button>
           <button @click="playerHeal" class="button">Heal</button>
-          <button class="button">Surrender</button>
+          <button @click="surrender" class="button">Surrender</button>
         </section>
         <section id="combat-log">
           <ul></ul>
