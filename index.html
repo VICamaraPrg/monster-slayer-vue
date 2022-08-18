@@ -16,19 +16,29 @@
         <section id="monster">
           <h2>Monster Health</h2>
           <div class="healthbar">
-            <div class="healthbar--value"></div>
+            <div class="healthbar--value" :style="monsterHealthbarStyle">
+              {{ monsterHealth }}
+            </div>
           </div>
         </section>
         <section id="player">
           <h2>Player's Health</h2>
           <div class="healthbar">
-            <div class="healthbar--value"></div>
+            <div class="healthbar--value" :style="playerHealthbarStyle">
+              {{ playerHealth }}
+            </div>
           </div>
         </section>
         <section id="actions">
-          <button class="button">Attack</button>
-          <button class="button">Special Attack</button>
-          <button class="button">Heal</button>
+          <button @click="playerAttack" class="button">Attack</button>
+          <button
+            @click="playerSuperAttack"
+            :disabled="isSuperAttackAvailable"
+            class="button"
+          >
+            Super Attack
+          </button>
+          <button @click="playerHeal" class="button">Heal</button>
           <button class="button">Surrender</button>
         </section>
         <section id="combat-log">
