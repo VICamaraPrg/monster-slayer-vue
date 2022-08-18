@@ -16,17 +16,21 @@
         <section id="monster">
           <h2>Monster Health</h2>
           <div class="healthbar">
-            <div class="healthbar--value" :style="monsterHealthbarStyle">
-              {{ monsterHealth }}
-            </div>
+            <div
+              :class="{'danger': monsterDanger}"
+              class="healthbar--value"
+              :style="monsterHealthbarStyle"
+            ></div>
           </div>
         </section>
         <section id="player">
           <h2>Player's Health</h2>
           <div class="healthbar">
-            <div class="healthbar--value" :style="playerHealthbarStyle">
-              {{ playerHealth }}
-            </div>
+            <div
+              :class="{'danger': monsterDanger}"
+              class="healthbar--value"
+              :style="playerHealthbarStyle"
+            ></div>
           </div>
         </section>
         <section v-if="winner">
@@ -38,22 +42,33 @@
         </section>
         <section id="actions" v-else>
           <button @click="playerAttack" class="button">Attack</button>
-          <button
-            @click="playerSuperAttack"
-            :disabled="isSuperAttackAvailable"
-            class="button"
-          >
+          <button @click="playerSuperAttack" :disabled="isSuperAttackAvailable" class="button">
             Super Attack
           </button>
           <button @click="playerHeal" class="button">Heal</button>
           <button @click="surrender" class="button">Surrender</button>
         </section>
-        <section id="combat-log">
-          <ul></ul>
+        <section id="combat-log" class="container">
+          <h2>Combat Log</h2>
+          <ul>
+            <li v-for="record in combatLog">
+              <span
+                :class="{'log--player': record.actionWho === 'player', 'log--monster': record.actionWho === 'monster'}"
+                >{{ record.actionWho === 'player' ? 'Player' : 'Monster' }}</span
+              >
+              <span v-if="record.actionType === 'heal'">
+                heals for
+                <span class="log--heal">{{ record.actionValue }}</span>
+              </span>
+              <span v-else>
+                attacks and deals
+                <span class="log--damage">{{ record.actionValue }}</span>
+              </span>
+            </li>
+          </ul>
         </section>
       </div>
     </div>
-
     <script src="https://unpkg.com/vue@3"></script>
     <script src="app.js"></script>
   </body>

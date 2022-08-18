@@ -82,3 +82,29 @@ button:disabled {
   color: #3f3f3f;
   cursor: not-allowed;
 }
+
+#combat-log ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#combat-log li {
+  margin: 0.5rem 0;
+}
+
+.log--player {
+  color: purple;
+}
+
+.log--monster {
+  color: orange;
+}
+
+.log--damage {
+  color: red;
+}
+
+.log--heal {
+  color: green;
+}
