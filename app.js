@@ -27,10 +27,16 @@ const app = Vue.createApp({
   },
   computed: {
     playerHealthbarStyle() {
-      return { width: this.playerHealth + "%", danger: this.playerDanger };
+      if (this.playerHealth <= 0) {
+        return { width: "0%" };
+      }
+      return { width: this.playerHealth + "%" };
     },
     monsterHealthbarStyle() {
-      return { width: this.monsterHealth + "%", danger: this.monsterDanger };
+      if (this.monsterHealth <= 0) {
+        return { width: "0%" };
+      }
+      return { width: this.monsterHealth + "%" };
     },
     isSuperAttackAvailable() {
       return this.currentTurn % 3 !== 0;
